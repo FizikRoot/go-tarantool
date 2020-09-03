@@ -6,7 +6,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/phonkee/godsn"
 	"io"
 	"log"
 	"net"
@@ -77,7 +76,7 @@ func ConnectContext(ctx context.Context, dsnString string, options *Options) (co
 	if options != nil {
 		opts = *options
 	}
-	dsn, opts, err := parseOptions(dsnString, opts)
+	_, opts, err = parseOptions(dsnString, opts)
 	if err != nil {
 		return nil, err
 	}
