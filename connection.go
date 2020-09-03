@@ -212,12 +212,13 @@ func newConn(ctx context.Context, scheme, addr string, opts Options) (conn *Conn
 func parseOptions(dsnString string, opts Options) (*url.URL, Options, error) {
 	// remove schema, if present
 	// === for backward compatibility (only tcp despite of user wishes :)
-	dsnString = strings.TrimPrefix(dsnString, "unix:")
+	// dsnString = strings.TrimPrefix(dsnString, "unix:")
 	// ===
 
 	// tcp is the default scheme
 	switch {
 	case strings.HasPrefix(dsnString, "tcp://"):
+	case strings.HasPrefix(dsnString, "unix:"):
 	case strings.HasPrefix(dsnString, "//"):
 		dsnString = "tcp:" + dsnString
 	default:
