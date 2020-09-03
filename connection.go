@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/phonkee/godsn"
 	"io"
 	"log"
 	"net"
@@ -77,11 +78,12 @@ func ConnectContext(ctx context.Context, dsnString string, options *Options) (co
 		opts = *options
 	}
 	dsn, opts, err := parseOptions(dsnString, opts)
-	log.Println("Привет", dsn.Scheme, dsn.Host)
 	if err != nil {
 		return nil, err
 	}
-	return connect(ctx, dsn.Scheme, dsn.Host, opts)
+	dsnString = strings.TrimPrefix(dsnString, "unix:")
+	log.Println("Привет", "unix", dsnString)
+	return connect(ctx, "unix", dsnString, opts)
 }
 
 // Connect to tarantool instance with options
