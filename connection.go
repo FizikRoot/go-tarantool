@@ -7,6 +7,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net"
 	"net/url"
 	"runtime"
@@ -76,6 +77,7 @@ func ConnectContext(ctx context.Context, dsnString string, options *Options) (co
 		opts = *options
 	}
 	dsn, opts, err := parseOptions(dsnString, opts)
+	log.Println("Привет", dsn.Scheme, dsn.Host)
 	if err != nil {
 		return nil, err
 	}
@@ -225,6 +227,7 @@ func parseOptions(dsnString string, opts Options) (*url.URL, Options, error) {
 		dsnString = "tcp://" + dsnString
 	}
 	dsn, err := url.Parse(dsnString)
+	log.Println("пока ", dsn)
 	if err != nil {
 		return dsn, opts, err
 	}
